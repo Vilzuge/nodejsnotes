@@ -6,6 +6,7 @@ if ( process.env.NODE_ENV !== 'production' ) {
 
 const url = process.env.MONGODB_URI
 mongoose.connect(url)
+mongoose.Promise = global.Promise
 
 
 const Note = mongoose.model('Note', {
