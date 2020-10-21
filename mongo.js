@@ -4,18 +4,18 @@ const url = 'mongodb+srv://databasen_kayttaja:kayttaja123@villen-cluster.pxg9c.m
 mongoose.connect(url)
 
 const Note = mongoose.model('Note', {
-    content: String,
-    date: Date,
-    important: Boolean
+  content: String,
+  date: Date,
+  important: Boolean
 })
-
-const note = new Note({
-    content: 'Ja vielä kolmas muistiinpano...',
-    date: new Date(),
-    important: true
-})
-
 /*
+const note = new Note({
+  content: 'Ja vielä kolmas muistiinpano...',
+  date: new Date(),
+  important: true
+})
+
+
 //Tietokantaan muistiinpanon tallennus
 note
     .save()
@@ -26,11 +26,12 @@ note
 */
 
 //Tietokannasta muistiinpanojen haku
+
 Note
-    .find({})
-    .then(result => {
-        result.forEach(note => {
-            console.log(note)
-        })
-        mongoose.connection.close()
+  .find({})
+  .then(result => {
+    result.forEach(note => {
+      console.log(note)
     })
+    mongoose.connection.close()
+  })

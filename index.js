@@ -8,11 +8,11 @@ app.use(cors())
 app.use(bodyParser.json())
 
 const logger = (request, response, next) => {
-    console.log('Method:', request.method)
-    console.log('Path:  ', request.path)
-    console.log('Body:  ', request.body)
-    console.log('---')
-    next()
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
 }
 
 app.use(express.static('build'))
@@ -61,24 +61,24 @@ app.delete('/api/notes/:id', (request, response) => {
 })
 
 app.post('/api/notes', (request, response) => {
-    const body = request.body
+  const body = request.body
   
-    if (body.content === undefined) {
-      return response.status(400).json({error: 'content missing'})
-    }
+  if (body.content === undefined) {
+    return response.status(400).json({error: 'content missing'})
+  }
   
-    const note =  new Note ({
-      content: body.content,
-      important: body.important|| false,
-      date: new Date(),
-    })
+  const note =  new Note ({
+    content: body.content,
+    important: body.important|| false,
+    date: new Date(),
+  })
     
-    note
-      .save()
-      .then(formatNote)
-      .then(savedAndFormattedNote => {
-        response.json(savedAndFormattedNote)
-      })
+  note
+    .save()
+    .then(formatNote)
+    .then(savedAndFormattedNote => {
+      response.json(savedAndFormattedNote)
+    })
 })
 
 app.put('/api/notes/:id', (request, response) => {
@@ -101,7 +101,7 @@ app.put('/api/notes/:id', (request, response) => {
 })
 
 const error = (request, response) => {
-    response.status(404).send({error: 'unknown endpoint'})
+  response.status(404).send({error: 'unknown endpoint'})
 }
 app.use(error)
 
