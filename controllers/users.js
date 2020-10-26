@@ -3,21 +3,15 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
-const formatUser = (user) => {
-    return {
-      id: user.id,
-      username: user.username,
-      name: user.name,
-      notes: user.notes
-    }
-  }
-
+//getting the users
 usersRouter.get('/', async (request, response) => {
-  const users = await User.find({})
-  response.json(users.map(formatUser))
+  const users = await User
+    .find({})
+    .populate('notes', { content: 1, date: 1 })
+  response.json(users.map(User.format))
 })
 
-
+//creating a new user
 usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body
@@ -27,7 +21,6 @@ usersRouter.post('/', async (request, response) => {
     if (existingUser.length > 0 ) {
         return response.status(400).json({error: 'username must be unique..'})
     }
-
 
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
