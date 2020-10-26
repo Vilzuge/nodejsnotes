@@ -6,11 +6,8 @@ const User = require('../models/user')
 //router for logging in
 loginRouter.post('/', async (request, response) => {
   const body = request.body
-
   const user = await User.findOne({ username: body.username })
-  const passwordCorrect = user === null ?
-    false :
-    await bcrypt.compare(body.password, user.passwordHash)
+  const passwordCorrect = user === null ? false : await bcrypt.compare(body.password, user.passwordHash)
 
   //are the credentials correct?
   if ( !(user && passwordCorrect) ) {
