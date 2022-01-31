@@ -1,11 +1,11 @@
-/* eslint-disable no-unused-vars */
+
 const notesRouter = require('express').Router()
 const jwt = require('jsonwebtoken')
 const Note = require('../models/note')
 const User = require('../models/user')
 
 
-//getting all the notes
+// getting all the notes
 notesRouter.get('/', async (request, response) => {
   const notes = await Note
     .find({})
@@ -13,7 +13,7 @@ notesRouter.get('/', async (request, response) => {
   response.json(notes.map(Note.format))
 })
 
-//getting a spesific note
+// getting a specific note
 notesRouter.get('/:id', async (request, response) => {
   try {
     const note = await Note.findById(request.params.id)
@@ -29,7 +29,7 @@ notesRouter.get('/:id', async (request, response) => {
   }
 })
 
-//deleting a spesific note
+// deleting a specific note
 notesRouter.delete('/:id', async (request, response) => {
   try {
     await Note.findByIdAndRemove(request.params.id)
@@ -41,7 +41,7 @@ notesRouter.delete('/:id', async (request, response) => {
   }
 })
 
-//getting token for the note
+// getting token for the note
 const getTokenFrom = (request) => {
   const authorization = request.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
@@ -50,7 +50,7 @@ const getTokenFrom = (request) => {
   return null
 }
 
-//posting a note with the token information linking to the user
+// posting a note with the token information linking to the user
 notesRouter.post('/', async (request, response) => {
   const body = request.body
   try {
@@ -86,7 +86,7 @@ notesRouter.post('/', async (request, response) => {
   }
 })
 
-//changing notes inportance
+// changing notes inportance
 notesRouter.put('/:id', (request, response) => {
   const body = request.body
   const note = {

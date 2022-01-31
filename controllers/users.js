@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
-//getting the users
+// getting the users
 usersRouter.get('/', async (request, response) => {
   const users = await User
     .find({})
@@ -11,7 +11,7 @@ usersRouter.get('/', async (request, response) => {
   response.json(users.map(User.format))
 })
 
-//creating a new user
+// creating a new user
 usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body

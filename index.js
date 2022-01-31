@@ -11,7 +11,7 @@ const config = require('./utils/config')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
-//connecting to the database
+// connecting to the database
 mongoose
   .connect(config.mongoUrl, { useNewUrlParser: true })
   .then( () => {
